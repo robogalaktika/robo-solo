@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -13,19 +13,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE: alat panggung, tegas, tanpa basa-basi — seperti panel synth 1983
-   IDEA: panel depan synth monofonik dengan layar oscilloscope CRT
-   PICTURE: oscilloscope besar yang sekaligus jadi strip main (fretless ribbon)
-   COLOUR: abu beton #2a2b2e, tinta krem-putih, aksen merah panel #e23b2e, jejak scope putih-biru berpendar
-   TYPE: Michroma untuk huruf panel, Archivo untuk teks; LAYOUT: bar kontrol tipis di atas, ribbon memenuhi sisa layar */
+/* VOICE: a stage instrument, direct and no-nonsense, like a 1983 synth panel
+   IDEA: front panel of a monophonic synth with a CRT oscilloscope screen
+   PICTURE: a big oscilloscope that doubles as the play strip (fretless ribbon)
+   COLOUR: concrete grey #2a2b2e, cream-white ink, panel red accent #e23b2e, glowing white-blue scope trace
+   TYPE: Michroma for panel lettering, Archivo for text; LAYOUT: slim control bar on top, ribbon fills the rest */
 :root{color-scheme:dark;--bg:#1c1d20;--panel:#2a2b2e;--panel2:#35363a;--ink:#f1efe9;--dim:#a9a7a0;--red:#e23b2e;--scope:#0f1012;--trace:#d9f2ff;--line:#46474c}
 *{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Archivo,system-ui,sans-serif;overflow:hidden;overscroll-behavior:none;user-select:none;-webkit-user-select:none}
 #app{display:flex;flex-direction:column;height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 header{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--panel);border-bottom:2px solid #111;overflow-x:auto;scrollbar-width:none;flex:none}
 header::-webkit-scrollbar{display:none}
-.logo{font-family:Michroma,sans-serif;font-size:13px;letter-spacing:.02em;white-space:nowrap;padding-right:4px}
+.logo{flex:none;font-family:Michroma,sans-serif;font-size:13px;letter-spacing:.02em;white-space:nowrap;padding-right:4px}
 .logo b{color:var(--red)}
+@media (max-width:840px){.logo{display:none}}
 .roots{display:flex;gap:3px;flex:none}
 .roots button,.btn,.seg button{font:600 13px Archivo,sans-serif;color:var(--ink);background:var(--panel2);border:1px solid #111;border-radius:6px;height:40px;min-width:34px;padding:0 8px;cursor:pointer;white-space:nowrap;box-shadow:inset 0 1px 0 #ffffff14}
 .roots button.on,.seg button.on{background:var(--red);border-color:#7a1810;color:#fff}
@@ -60,36 +61,36 @@ input[type=range]{width:100%;accent-color:var(--red);height:32px}
 <div id="app">
 <header>
   <div class="logo">ROBO<b>/</b>SOLO</div>
-  <div class="roots" id="roots" aria-label="Nada dasar"></div>
+  <div class="roots" id="roots" aria-label="Root note"></div>
   <select id="scale" aria-label="Scale"></select>
   <select id="sound" aria-label="Sound"></select>
-  <div class="oct"><button class="btn" id="octD" aria-label="Oktaf turun">−</button><span id="octV">OKT 4</span><button class="btn" id="octU" aria-label="Oktaf naik">+</button></div>
+  <div class="oct"><button class="btn" id="octD" aria-label="Octave down">−</button><span id="octV">OCT 4</span><button class="btn" id="octU" aria-label="Octave up">+</button></div>
   <div class="sp"></div>
   <button class="btn" id="fxBtn">FX</button>
-  <button class="btn" id="fsBtn" aria-label="Layar penuh">Layar penuh</button>
+  <button class="btn" id="fsBtn" aria-label="Fullscreen">FULLSCREEN</button>
 </header>
 <div id="stage">
   <canvas id="scope"></canvas>
   <canvas id="over"></canvas>
   <div id="hud"><div class="n" id="hn">—</div><div class="s" id="hs"></div></div>
-  <div id="hint">Sentuh &amp; geser ke kiri-kanan untuk ganti nada · atas = terang, bawah = gelap</div>
-  <div id="rot">Putar HP ke landscape</div>
-  <aside id="fx" aria-label="Efek dan pengaturan">
-    <h2>EFEK &amp; MAIN <button class="btn" id="fxClose">Tutup</button></h2>
-    <div class="row"><label>Snap nada</label><div class="seg" id="snap" style="grid-column:span 2"></div></div>
-    <div class="row"><label>Jangkauan</label><div class="seg" id="range" style="grid-column:span 2"></div></div>
+  <div id="hint">Touch &amp; slide left-right to change notes · up = bright, down = dark</div>
+  <div id="rot">Rotate your phone to landscape</div>
+  <aside id="fx" aria-label="Effects and settings">
+    <h2>FX &amp; PLAY <button class="btn" id="fxClose">Close</button></h2>
+    <div class="row"><label>Note snap</label><div class="seg" id="snap" style="grid-column:span 2"></div></div>
+    <div class="row"><label>Range</label><div class="seg" id="range" style="grid-column:span 2"></div></div>
     <div class="row"><label for="vol">Volume</label><input type="range" id="vol" min="0" max="1" step="0.01"><output></output></div>
     <div class="row"><label for="glide">Glide</label><input type="range" id="glide" min="0" max="0.4" step="0.005"><output></output></div>
-    <div class="row"><label for="vib">Vibrato otomatis</label><input type="range" id="vib" min="0" max="50" step="1"><output></output></div>
+    <div class="row"><label for="vib">Auto vibrato</label><input type="range" id="vib" min="0" max="50" step="1"><output></output></div>
     <div class="grp"></div>
     <div class="row"><label for="cho">Chorus</label><input type="range" id="cho" min="0" max="1" step="0.01"><output></output></div>
     <div class="row"><label for="dly">Delay</label><input type="range" id="dly" min="0" max="0.8" step="0.01"><output></output></div>
     <div class="row"><label for="fb">Feedback</label><input type="range" id="fb" min="0" max="0.85" step="0.01"><output></output></div>
-    <div class="row"><label>Ketukan delay</label><div class="seg" id="div" style="grid-column:span 2"></div></div>
+    <div class="row"><label>Delay time</label><div class="seg" id="div" style="grid-column:span 2"></div></div>
     <div class="row"><label for="bpm">Tempo (BPM)</label><input type="range" id="bpm" min="60" max="180" step="1"><output></output></div>
     <div class="row"><label></label><button class="btn" id="tap" style="grid-column:span 2">Tap tempo</button></div>
     <div class="row"><label for="rev">Reverb</label><input type="range" id="rev" min="0" max="1" step="0.01"><output></output></div>
-    <p class="note">Snap <b>Kuat</b>: selalu tepat di nada. <b>Ekspresif</b>: goyang jari = vibrato, geser = bend. <b>Lepas</b>: fretless penuh.<br>Panggung: pakai kabel ke mixer/DI, jangan Bluetooth. Keyboard laptop: baris Z–/ dan A–;.</p>
+    <p class="note">Snap <b>Hard</b>: always exactly on the note. <b>Expressive</b>: wiggle = vibrato, slide = bend. <b>Free</b>: full fretless.<br>On stage: use a cable to the mixer/DI, not Bluetooth. Laptop keyboard: rows Z–/ and A–;.</p>
   </aside>
 </div>
 </div>
@@ -97,11 +98,11 @@ input[type=range]{width:100%;accent-color:var(--red);height:32px}
 {
 const NAMES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const SCALES=[
- ['Synth pop 80an',[['Natural Minor',[0,2,3,5,7,8,10]],['Dorian',[0,2,3,5,7,9,10]],['Phrygian',[0,1,3,5,7,8,10]],['Harmonic Minor',[0,2,3,5,7,8,11]],['Minor Pentatonic',[0,3,5,7,10]]]],
- ['Pentatonik & Blues',[['Major Pentatonic',[0,2,4,7,9]],['Blues',[0,3,5,6,7,10]],['Major Blues',[0,2,3,4,7,9]]]],
- ['Mode',[['Ionian (Major)',[0,2,4,5,7,9,11]],['Lydian',[0,2,4,6,7,9,11]],['Mixolydian',[0,2,4,5,7,9,10]],['Locrian',[0,1,3,5,6,8,10]]]],
+ ['80s Synth Pop',[['Natural Minor',[0,2,3,5,7,8,10]],['Dorian',[0,2,3,5,7,9,10]],['Phrygian',[0,1,3,5,7,8,10]],['Harmonic Minor',[0,2,3,5,7,8,11]],['Minor Pentatonic',[0,3,5,7,10]]]],
+ ['Pentatonic & Blues',[['Major Pentatonic',[0,2,4,7,9]],['Blues',[0,3,5,6,7,10]],['Major Blues',[0,2,3,4,7,9]]]],
+ ['Modes',[['Ionian (Major)',[0,2,4,5,7,9,11]],['Lydian',[0,2,4,6,7,9,11]],['Mixolydian',[0,2,4,5,7,9,10]],['Locrian',[0,1,3,5,6,8,10]]]],
  ['Jazz',[['Melodic Minor',[0,2,3,5,7,9,11]],['Bebop Dominant',[0,2,4,5,7,9,10,11]],['Altered',[0,1,3,4,6,8,10]],['Whole Tone',[0,2,4,6,8,10]],['Diminished (H-W)',[0,1,3,4,6,7,9,10]]]],
- ['Warna lain',[['Phrygian Dominant',[0,1,4,5,7,8,10]],['Hungarian Minor',[0,2,3,6,7,8,11]],['Hirajoshi',[0,2,3,7,8]],['Pelog ≈',[0,1,3,7,8]],['Slendro ≈',[0,2,5,7,9]],['Kromatik',[0,1,2,3,4,5,6,7,8,9,10,11]]]]
+ ['Other colours',[['Phrygian Dominant',[0,1,4,5,7,8,10]],['Hungarian Minor',[0,2,3,6,7,8,11]],['Hirajoshi',[0,2,3,7,8]],['Pelog ≈',[0,1,3,7,8]],['Slendro ≈',[0,2,5,7,9]],['Chromatic',[0,1,2,3,4,5,6,7,8,9,10,11]]]]
 ];
 const SC={};SCALES.forEach(g=>g[1].forEach(s=>SC[s[0]]=s[1]));
 const P={
@@ -110,8 +111,8 @@ const P={
  poly:{n:'Poly Saw (Jupiter)',o:[{t:'sawtooth',dt:-14,g:.22},{t:'sawtooth',g:.22},{t:'sawtooth',dt:14,g:.22},{t:'sawtooth',r:.5,g:.12}],cut:3600,q:1.5,env:1.6,a:.01,d:.5,s:.8,r:.35,gl:.04},
  bell:{n:'FM Bell (DX7)',fm:{r:3.5,i:7,s:.08},cut:12000,q:.5,env:1,a:.002,d:1.4,s:.25,r:.9,gl:.02},
  brass:{n:'FM Brass (DX7)',fm:{r:1,i:3.2,s:.55},cut:5000,q:1,env:1.8,a:.05,d:.4,s:.8,r:.25,gl:.05},
- bass:{n:'Mono Lead Resonan',o:[{t:'sawtooth',g:.4},{t:'square',r:.5,g:.22}],cut:850,q:11,env:5,a:.003,d:.25,s:.7,r:.14,gl:.05},
- glass:{n:'Glass (lembut)',o:[{t:'triangle',g:.5},{t:'sine',r:2,g:.18}],cut:6500,q:.5,env:1,a:.07,d:.6,s:1,r:.6,gl:.08},
+ bass:{n:'Resonant Mono Lead',o:[{t:'sawtooth',g:.4},{t:'square',r:.5,g:.22}],cut:850,q:11,env:5,a:.003,d:.25,s:.7,r:.14,gl:.05},
+ glass:{n:'Glass (soft)',o:[{t:'triangle',g:.5},{t:'sine',r:2,g:.18}],cut:6500,q:.5,env:1,a:.07,d:.6,s:1,r:.6,gl:.08},
  sine:{n:'Theremin Sine',o:[{t:'sine',g:.6}],cut:9000,q:.3,env:1,a:.04,d:.3,s:1,r:.35,gl:.15}
 };
 const st=Object.assign({root:9,scale:'Natural Minor',sound:'pwm',oct:4,range:2,snap:'eks',vol:.75,glide:.06,vib:14,cho:.35,dly:.25,fb:.35,div:'d8',bpm:118,rev:.3},(()=>{try{return JSON.parse(localStorage.getItem('roboSolo')||'{}')}catch(e){return{}}})());
@@ -125,12 +126,12 @@ $('sound').innerHTML=Object.entries(P).map(([k,v])=>`<option value="${k}">${v.n}
 const seg=(id,opts,key,cb)=>{const el=$(id);el.innerHTML=opts.map(o=>`<button data-v="${o[0]}">${o[1]}</button>`).join('');
  const upd=()=>el.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==String(st[key])));
  el.onclick=e=>{const b=e.target.closest('button');if(!b)return;st[key]=isNaN(+b.dataset.v)?b.dataset.v:+b.dataset.v;upd();save();cb&&cb()};upd()};
-seg('snap',[['kuat','Kuat'],['eks','Ekspresif'],['lepas','Lepas']],'snap');
-seg('range',[[1,'1 okt'],[2,'2 okt'],[3,'3 okt']],'range',build);
-seg('div',[['8','1/8'],['d8','1/8 titik'],['4','1/4']],'div',fxUpd);
+seg('snap',[['kuat','Hard'],['eks','Expressive'],['lepas','Free']],'snap');
+seg('range',[[1,'1 oct'],[2,'2 oct'],[3,'3 oct']],'range',build);
+seg('div',[['8','1/8'],['d8','dotted 1/8'],['4','1/4']],'div',fxUpd);
 function syncUI(){
  $('roots').querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.i===st.root));
- $('scale').value=st.scale;$('sound').value=st.sound;$('octV').textContent='OKT '+st.oct;
+ $('scale').value=st.scale;$('sound').value=st.sound;$('octV').textContent='OCT '+st.oct;
 }
 $('roots').onclick=e=>{const b=e.target.closest('button');if(!b)return;st.root=+b.dataset.i;syncUI();build();save()};
 $('scale').onchange=e=>{st.scale=e.target.value;build();save()};

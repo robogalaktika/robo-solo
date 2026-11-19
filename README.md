@@ -1,39 +1,39 @@
 # Robo Solo Synth
 
-Synth solo berbasis oscillator untuk mengisi solo saat manggung bareng band (dibuat untuk Robo Galaktika: new wave & synth pop 80an). Jalan di browser HP, tanpa install dari store.
+An oscillator synth for playing solos live with a band, made for Robo Galaktika (new wave and 80s synth pop). Runs in a phone browser, no app store install needed.
 
-## Fitur
+## Features
 
-- **Ribbon fretless**: geser kiri-kanan untuk pindah nada, atas-bawah untuk mengatur kecerahan filter. Yang muncul hanya nada dari scale yang dipilih.
-- **12 nada dasar** dan **22 scale**: Natural Minor, Dorian, Phrygian, Harmonic Minor, pentatonik, blues, mode, jazz, sampai pendekatan Pelog/Slendro.
-- **8 sound**: PWM Lead, Scream Lead, Poly Saw, FM Bell, FM Brass, Mono Lead Resonan, Glass, Theremin Sine.
-- **Snap nada**: Kuat, Ekspresif (goyang jari = vibrato, geser = bend), Lepas (fretless).
-- **Efek**: glide, vibrato otomatis, chorus, delay ikut tempo (dengan tap tempo), reverb.
-- **Tampilan**: oscilloscope besar sebagai latar.
-- **Lainnya**: pengaturan tersimpan otomatis di perangkat.
+- **Fretless ribbon**: slide left-right to change notes, up-down to control filter brightness. Only notes from the chosen scale are shown.
+- **12 root notes** and **22 scales**: Natural Minor, Dorian, Phrygian, Harmonic Minor, pentatonics, blues, modes, jazz, and Pelog/Slendro approximations.
+- **8 sounds**: PWM Lead, Scream Lead, Poly Saw, FM Bell, FM Brass, Resonant Mono Lead, Glass, Theremin Sine.
+- **Note snap**: Hard, Expressive (wiggle = vibrato, slide = bend), Free (fretless).
+- **Effects**: glide, auto vibrato, chorus, tempo-synced delay (with tap tempo), reverb.
+- **Display**: a big oscilloscope as the background.
+- **Other**: settings are saved automatically on the device.
 
-## Online-kan dengan GitHub Pages
+## Put it online with GitHub Pages
 
-1. Buat repo baru di GitHub, misalnya `robo-solo`.
-2. Upload semua file di folder ini ke repo (drag & drop di halaman repo → **Add file → Upload files**).
-3. Buka **Settings → Pages**, lalu pada *Source* pilih **Deploy from a branch**, branch `main`, folder `/ (root)`, dan simpan.
-4. Tunggu 1–2 menit. Aplikasinya ada di `https://<username>.github.io/robo-solo/`.
+1. Create a new GitHub repo, e.g. `robo-solo`.
+2. Upload all files in this folder (**Add file → Upload files**).
+3. Open **Settings → Pages**, set *Source* to **Deploy from a branch**, branch `main`, folder `/ (root)`, and save.
+4. Wait 1–2 minutes. The app will be at `https://<username>.github.io/robo-solo/`.
 
-## Pasang di HP
+## Install on your phone
 
-Buka alamat tadi di Chrome (Android) atau Safari (iPhone), lalu pilih **Tambahkan ke layar utama**. Aplikasi akan terbuka layar penuh dalam mode landscape.
+Open that address in Chrome (Android) or Safari (iPhone) and choose **Add to Home Screen**. The app opens fullscreen in landscape.
 
-## Tips manggung
+## Stage tips
 
-- Sambungkan ke mixer atau DI box dengan kabel (jack 3.5mm atau adaptor USB-C). Jangan pakai Bluetooth karena delay-nya terlalu besar.
-- Matikan notifikasi dan mode hemat baterai supaya suara tidak terputus.
-- Coba latency di HP kamu sebelum manggung.
+- Connect to the mixer or a DI box with a cable (3.5mm jack or USB-C adapter). Avoid Bluetooth: its delay is too long for live playing.
+- Turn off notifications and battery saver so the audio doesn't cut out.
+- Test the latency on your phone before the gig.
 
-## File
+## Files
 
-| File | Fungsi |
+| File | Purpose |
 |---|---|
-| `index.html` | Seluruh aplikasi (HTML, CSS, JS, Web Audio) |
-| `manifest.webmanifest` | Data untuk "Tambahkan ke layar utama" |
-| `icon-192.png`, `icon-512.png` | Ikon aplikasi |
-| `.nojekyll` | Supaya GitHub Pages menyajikan file apa adanya |
+| `index.html` | The whole app (HTML, CSS, JS, Web Audio) |
+| `manifest.webmanifest` | Data for "Add to Home Screen" |
+| `icon-192.png`, `icon-512.png` | App icons |
+| `.nojekyll` | Makes GitHub Pages serve the files as they are |
